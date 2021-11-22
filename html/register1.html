@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/ajax.js"></script>
+    <script src="../js/interface.js"></script>
+    <style>
+        div {
+            user-select: none;
+        }
+
+        .right {
+            font-size: 12px;
+            color: green;
+        }
+
+        .err {
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form onsubmit="return false">
+        <p>
+            <label for="user">用户名:</label>
+            <input type="text" id="user" placeholder="用户名">
+            <span id="user_span"></span>
+        </p>
+        <p>
+            <label for="">密&emsp;码:</label>
+            <input type="text" id="pwd">
+            <span id="pwd_span"></span>
+        </p>
+        <p>
+            <label for="">手机号:</label>
+            <input type="text" id="phone">
+            <span id="phone_span"></span>
+        </p>
+        <p>
+            <label for="">邮&emsp;箱:</label>
+            <input type="text" id="email">
+            <span id="email_span"></span>
+        </p>
+        <p>
+            <input type="submit" id="btn" value="注册">
+        </p>
+    </form>
+</body>
+
+<script>
+
+    // 1. 获取元素 
+    var userInp = document.getElementById("user");
+    var userSpan = document.getElementById("user_span");
+
+    var pwdInp = document.getElementById("pwd");
+    var pwdSpan = document.getElementById("pwd_span");
+
+    var phoneInp = document.getElementById("phone");
+    var phoneSpan = document.getElementById("phone_span");
+
+    var emailInp = document.getElementById("email");
+    var emailSpan = document.getElementById("email_span");
+
+    var btn = document.getElementById("btn");
+
+    var isUserOk = false;
+    var isPwdOk = false;
+    var isPhoneOk = false;
+    var isEmailOk = false;
+
+    // 用户名:   由数字,字母 下划线组成,6-12位,且不能以数字开头
+    // 一步到位
+    userInp.onblur = async function () {
+        var user = userInp.value.trim();
+        userInp.value = user;
+        isUserOk = false; // 每次验证 默认还原为false
+
+        var reg = /^[a-zA-Z_]\w{5,11}$/;
+
+        if (reg.test(user)) {
+
+            var result = await isExistUser({ user: user });
+            var { status, msg } = result;
+            if (status) {
+                userSpan.textContent = "√";
+                userSpan.className = "right";
+                isUserOk = true;
+            } else {
+                userSpan.textContent = "用户名已存在";
+                userSpan.className = "err";
+            }
+
+            /*  isExistUser({ user: user }).then(result => {
+                 var { status, msg } = result;
+                 if (status) {
+                     userSpan.textContent = "√";
+                     userSpan.className = "right";
+                     isUserOk = true;
+                 } else {
+                     userSpan.textContent = "用户名已存在";
+                     userSpan.className = "err";
+                 }
+             }).catch(err => {
+                 throw err;
+             }) */
+        } else {
+            userSpan.textContent = "用户名由数字、字母、下划线组成,6-12位,且不能以数字开头";
+            userSpan.className = "err";
+        }
+    }
+
+    // 密码:   由数字,字母 下划线组成,6-12位,
+    pwdInp.onblur = function () {
+        var pwd = pwdInp.value.trim();
+        pwdInp.value = pwd;
+
+        isPwdOk = false;
+
+        var reg = /^\w{6,12}$/;
+
+        if (reg.test(pwd)) {
+            pwdSpan.textContent = "√";
+            pwdSpan.className = "right";
+            isPwdOk = true;
+        } else {
+            pwdSpan.textContent = "密码由数字、字母、下划线组成,6-12位";
+            pwdSpan.className = "err";
+        }
+    }
+
+
+    // 手机号: 
+    phoneInp.onblur = async function () {
+        var phone = phoneInp.value.trim();
+        phoneInp.value = phone;
+
+        isPhoneOk = false;
+
+        var reg = /^1[3-9]\d{9}$/;
+
+        if (reg.test(phone)) {
+
+            var result = await isExistPhone({ phone });
+            var { status, msg } = result;
+            if (status) {
+                phoneSpan.textContent = "√";
+                phoneSpan.className = "right";
+                isPhoneOk = true;
+            } else {
+                phoneSpan.textContent = msg;
+                phoneSpan.className = "err";
+            }
+
+
+            /* var xhr = new XMLHttpRequest();
+
+            xhr.open("get", `../php/isExistPhone.php?phone=${phone}`, true);
+
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                    console.log(result);
+                    result = JSON.parse(result);
+                    console.log(result);
+
+                    var { status, msg } = result;
+
+                    if (status) {
+                        phoneSpan.textContent = "√";
+                        phoneSpan.className = "right";
+                        isPhoneOk = true;
+                    } else {
+                        phoneSpan.textContent = msg;
+                        phoneSpan.className = "err";
+                    }
+
+                }
+            } */
+
+        } else {
+            phoneSpan.textContent = "请输入正确的手机号";
+            phoneSpan.className = "err";
+        }
+    }
+
+    emailInp.onblur = function () {
+        var email = emailInp.value.trim();
+        emailInp.value = email;
+        isEmailOk = false;
+
+        // 1231231@qq.com
+        var reg = /^\w+@\w+\.(com|cn|edu)$/;
+
+        if (reg.test(email)) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("get", `../php/isExistEmail.php?email=${email}`, true);
+
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                    console.log(result);
+                    result = JSON.parse(result);
+                    console.log(result);
+
+                    var { status, msg } = result;
+
+                    if (status) {
+                        emailSpan.textContent = "√";
+                        emailSpan.className = "right";
+                        isEmailOk = true;
+                    } else {
+                        emailSpan.textContent = msg;
+                        emailSpan.className = "err";
+                    }
+
+                }
+            }
+        } else {
+            emailSpan.textContent = "请输入正确的邮箱";
+            emailSpan.className = "err";
+        }
+    }
+
+    btn.onclick = async function () {
+        console.log(isUserOk, isPwdOk, isPhoneOk, isEmailOk);
+        if (isUserOk && isPwdOk && isPhoneOk && isEmailOk) {
+            var user = userInp.value.trim();
+            var pwd = pwdInp.value;
+            var phone = phoneInp.value;
+            var email = emailInp.value;
+
+            var result = await register({ user, pwd, phone, email });
+            var { status, msg } = result;
+            if (status) {
+                location.href = "login.html";
+            } else {
+                alert(msg);
+            }
+
+            /* register({ user, pwd, phone, email }).then(result => {
+                var { status, msg } = result;
+                if (status) {
+                    location.href = "login.html";
+                } else {
+                    alert(msg);
+                }
+            }).catch(err => {
+                throw err;
+            }) */
+
+            /* var xhr = new XMLHttpRequest();
+
+            xhr.open("post", "../php/register.php", true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(`user=${user}&pwd=${pwd}&phone=${phone}&email=${email}`);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                    console.log(result);
+                    result = JSON.parse(result);
+                    console.log(result);
+
+                    var { status, msg } = result;
+
+                    if (status) {
+                        location.href = "login.html";
+                    } else {
+                        alert(msg);
+                    }
+
+                }
+            } */
+
+        }
+    }
+
+
+
+
+</script>
+
+</html>

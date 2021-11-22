@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/cookie.js"></script>
+    <script src="../js/ajax.js"></script>
+    <script src="../js/interface.js"></script>
+    <style>
+        div {
+            user-select: none;
+        }
+
+        p span {
+            position: absolute;
+        }
+
+        .right {
+            font-size: 12px;
+            color: green;
+        }
+
+        .err {
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form onsubmit="return false">
+        <p>
+            <label for="user">用户名:</label>
+            <input type="text" id="user" placeholder="用户名"><br>
+            <span id="user_span"></span>
+        </p>
+        <p>
+            <label for="">密&emsp;码:</label>
+            <input type="text" id="pwd"><br>
+            <span id="pwd_span"></span>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="isRem"> 记住用户名?
+            </label>
+        </p>
+        <p>
+            <input type="submit" id="btn" value="登录">
+        </p>
+    </form>
+</body>
+
+<script>
+
+    // 1. 获取元素 
+    var userInp = document.getElementById("user");
+    var userSpan = document.getElementById("user_span");
+
+    var pwdInp = document.getElementById("pwd");
+    var pwdSpan = document.getElementById("pwd_span");
+    var isRem = document.getElementById("isRem");
+
+    btn.onclick = function () {
+        // 用户输入的  用户名和密码
+        var user = userInp.value.trim();
+        var pwd = pwdInp.value;
+
+        if (user && pwd) {
+            login({ user, pwd }).then(result => {
+                var { status, msg } = result;
+                if (status) {
+                    if (isRem.checked) {
+                        setCookie("lgc", user, 7);
+                    } else {
+                        setCookie("lgc", user);
+                    }
+                    location.href = "index.html";
+                } else {
+                    // alert(msg);
+                    pwdSpan.textContent = msg;
+                    pwdSpan.className = "err";
+                }
+            }).catch(err => {
+                throw err;
+            })
+
+
+            /* var xhr = new XMLHttpRequest();
+
+            xhr.open("post", "../php/login.php", true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(`user=${user}&pwd=${pwd}`);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                    console.log(result);
+                    result = JSON.parse(result);
+                    console.log(result);
+
+                    var { status, msg } = result;
+
+                    if (status) {
+                        if (isRem.checked) {
+                            setCookie("lgc", user, 7);
+                        } else {
+                            setCookie("lgc", user);
+                        }
+                        location.href = "index1.html";
+                    } else {
+                        // alert(msg);
+                        pwdSpan.textContent = msg;
+                        pwdSpan.className = "err";
+                    }
+
+                }
+            } */
+
+        }
+    }
+
+
+
+
+
+
+</script>
+
+</html>

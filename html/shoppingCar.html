@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/shoppingCar.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_2790765_pqm82v7ytg.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/interface.js"></script>
+    <script src="../js/cookie.js"></script>
+</head>
+
+<body>
+    <div class="wrapHeader">
+        <div class="header w">
+            <div class="left">
+                <div class="logo">
+                    <a href=""><img src="../images/logo-mi2.png" alt=""></a>
+                </div>
+                <div class="title">我的购物车</div>
+                <div class="shoppingCarTips">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+            </div>
+            <div class="right">
+                <div class="loginBar">
+                    <a href="javascript:;" class="login">登录</a>
+                    <span class="sep">|</span>
+                    <a href="javascript:;" class="register">注册</a>
+                </div>
+                <div class="logined">
+                    <a class="tips">欢迎您,a123123</a>
+                    <ul class="subMenu">
+                        <li><a href="">用户中心</a></li>
+                        <li><a href="">评价晒单</a></li>
+                        <li><a href="">我的喜欢</a></li>
+                        <li><a href="">小米账户</a></li>
+                        <li class="exit"><a href="javascript:;">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 购物车 -->
+    <div class="container w">
+        <div class="cart-main">
+            <div class="cart-wrap">
+                <div class="list-header">
+                    <div class="col col-check">
+                        <label>
+                            <input type="checkbox" class="check-all">&emsp;全选
+                        </label>
+                    </div>
+                    <div class="col col-img"></div>
+                    <div class="col col-detail">商品名称</div>
+                    <div class="col col-price">单价</div>
+                    <div class="col col-count">数量</div>
+                    <div class="col col-subtotal">小计</div>
+                    <div class="col col-operate">操作</div>
+                </div>
+                <div class="list-body">
+                    <!-- <div class="list-item">
+                        <div class="col col-check">
+                            <label>
+                                <input type="checkbox" class="check-one">
+                            </label>
+                        </div>
+                        <div class="col col-img">
+                            <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1632713426.30988142.jpg?thumb=1&w=100&h=100"
+                                alt="">
+                        </div>
+                        <div class="col col-detail">
+                            Xiaomi Civi 8GB+128GB 闪闪黑</div>
+                        <div class="col col-price">2599元</div>
+                        <div class="col col-count">
+                            <div class="countBox">
+                                <span class="reduce">-</span>
+                                <span class="countSpan">1</span>
+                                <span class="add">+</span>
+                            </div>
+                        </div>
+                        <div class="col col-subtotal">2599元</div>
+                        <div class="col col-operate"><i class="iconfont icon-close delete"></i></div>
+                    </div>
+                    <div class="list-item">
+                        <div class="col col-check">
+                            <label>
+                                <input type="checkbox" class="check-one">
+                            </label>
+                        </div>
+                        <div class="col col-img">
+                            <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1628588553.56819324.jpg?thumb=1&w=100&h=100"
+                                alt="">
+                        </div>
+                        <div class="col col-detail">Xiaomi MIX 4 8GB+128GB 陶瓷黑</div>
+                        <div class="col col-price">4999元</div>
+                        <div class="col col-count">
+                            <div class="countBox">
+                                <span class="reduce">-</span>
+                                <span class="countSpan">1</span>
+                                <span class="add">+</span>
+                            </div>
+                        </div>
+                        <div class="col col-subtotal">4999元</div>
+                        <div class="col col-operate"><i class="iconfont icon-close delete"></i></div>
+                    </div>
+                    <div class="list-item">
+                        <div class="col col-check">
+                            <label>
+                                <input type="checkbox" class="check-one">
+                            </label>
+                        </div>
+                        <div class="col col-img">
+                            <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1622000680.1781885.jpg?thumb=1&w=100&h=100"
+                                alt="">
+                        </div>
+                        <div class="col col-detail">Redmi AirDots 3 Pro曜石黑</div>
+                        <div class="col col-price">299元</div>
+                        <div class="col col-count">
+                            <div class="countBox">
+                                <span class="reduce">-</span>
+                                <span class="countSpan">1</span>
+                                <span class="add">+</span>
+                            </div>
+                        </div>
+                        <div class="col col-subtotal">299元</div>
+                        <div class="col col-operate"><i class="iconfont icon-close delete"></i></div>
+                    </div>
+                    <div class="list-item">
+                        <div class="col col-check">
+                            <label>
+                                <input type="checkbox" class="check-one">
+                            </label>
+                        </div>
+                        <div class="col col-img">
+                            <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1621955784.84614979.jpg?thumb=1&w=100&h=100"
+                                alt="">
+                        </div>
+                        <div class="col col-detail">
+                            Redmi Note 10 Pro 6GB+128GB 月魄</div>
+                        <div class="col col-price">1599元</div>
+                        <div class="col col-count">
+                            <div class="countBox">
+                                <span class="reduce">-</span>
+                                <span class="countSpan">1</span>
+                                <span class="add">+</span>
+                            </div>
+                        </div>
+                        <div class="col col-subtotal">1599元</div>
+                        <div class="col col-operate"><i class="iconfont icon-close delete"></i></div>
+                    </div> -->
+                </div>
+                <div class="list-footer">
+                    <div class="col col-continue"><a href="">继续购物</a></div>
+                    <span class="col col-sep">|</span>
+                    <div class="col col-center">
+                        <div class="numTips">
+                            共 <span class="totalNum">4</span> 件商品，已选择 <span class="selectedNum">0</span> 件
+                        </div>
+                        <div class="priceTips">
+                            合计：<span class="selectedTotal">0</span>元
+                        </div>
+                    </div>
+                    <div class="col col-total">
+                        <a href="">去结算</a>
+                        <div class="totalTips">
+                            请勾选需要结算的商品
+                            <i class="iconfont icon-xiasanjiao-copy arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-recommend">
+            <div class="recommend-title">
+                买购物车商品的人还买了
+            </div>
+            <ul class="recommend-list cl">
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+                <li>
+                    <a href=""><img
+                            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81e377ca93f0dd35ea61adfd39a305fb.jpg?thumb=1&w=248&h=248&f=webp&q=90"
+                            alt=""></a>
+                    <div class="title">Redmi G 2021 锐龙版</div>
+                    <div class="price">7499元</div>
+                    <div class="tips">368人好评</div>
+                    <div class="addToShoppingCar">
+                        加入购物车
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+
+
+
+    <!-- footers -->
+    <div class="wrapFooter">
+        <div class="footer w">
+            <ul class="serviceList">
+                <li><i class="iconfont icon-buoumaotubiao46"></i> <span>预约维修服务</span></li>
+                <li><i class="iconfont icon-7tianwuliyoutuihuo"></i> <span>7天无理由退货</span></li>
+                <li><i class="iconfont icon-15tianwuliyoutuihuo"></i> <span>15天免费换货</span></li>
+                <li><i class="iconfont icon-libao"></i> <span>满69包邮</span></li>
+                <li><i class="iconfont icon-dingwei"></i> <span>520余家售后网点</span></li>
+            </ul>
+            <div class="friendAConnect cl">
+                <div class="friendLink cl">
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                    <ul class="links">
+                        <li class="title"><a href="">帮助中心</a></li>
+                        <li><a href=""></a>账户管理</li>
+                        <li><a href=""></a>购物指南</li>
+                        <li><a href=""></a>订单操作</li>
+                    </ul>
+                </div>
+                <div class="contact">
+                    <h3 class="phone">400-100-5678</h3>
+                    <p class="time">8:00-18:00 (仅收市话费)</p>
+                    <div class="person"><i class="iconfont icon-xinxi"></i> 人工客服</div>
+                    <p class="guanzhu">
+                        关注小米:
+                        <i class="iconfont icon-weibo"></i>
+                        <i class="iconfont icon-weixin"></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shadow -->
+    <div class="shadow">
+        <div class="protocol">
+            <div class="protocolHeader">
+                协议声明
+                <i class="iconfont icon-close"></i>
+            </div>
+            <div class="protocolBody">
+                <span>《小米商城用户协议》</span>、<span>《小米商城隐私政策》</span>、<span>《小米帐号用户协议》</span>、<span>《小米帐号隐私政策》</span>请您仔细阅读以上协议，其中有对您权利义务的特别约定等重要条款，同意后方可使用本软件
+            </div>
+            <div class="protocolFooter">
+                <a href="javascript:;" class="agree">同意</a>
+                <a href="javascript:;" class="disagree">不同意</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(async function () {
+
+        var user = getCookie("lgc");
+        // list.html => detail.html => login.html
+        // 页面加载时  有用户名就表示用户身份  没有=>去登录
+        if (user) {
+
+        } else {
+            location.href = "./login_account.html?returnUrl=" + encodeURIComponent(location.href)
+        }
+        var result = await searchShoppingCarByUser({ user });
+        console.log(result);
+
+        var { status, msg, list } = result;
+        if (status) {
+            var html = "";
+            list.forEach(({ id, goodsName, goodsPrice, goodsImg, buyNum, total }) => {
+                html += `<div class="list-item" data-id="${id}">
+                        <div class="col col-check">
+                            <label>
+                                <input type="checkbox" class="check-one">
+                            </label>
+                        </div>
+                        <div class="col col-img">
+                            <img src="${goodsImg}"
+                                alt="">
+                        </div>
+                        <div class="col col-detail" title="${goodsName}">${goodsName}</div>
+                        <div class="col col-price">${goodsPrice}元</div>
+                        <div class="col col-count">
+                            <div class="countBox">
+                                <span class="reduce">-</span>
+                                <span class="countSpan">${buyNum}</span>
+                                <span class="add">+</span>
+                            </div>
+                        </div>
+                        <div class="col col-subtotal">${total}元</div>
+                        <div class="col col-operate"><i class="iconfont icon-close delete"></i></div>
+                    </div>`
+            })
+            $(".list-body").html(html);
+        }
+
+
+    })
+
+
+
+</script>
+
+</html>

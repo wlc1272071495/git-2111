@@ -1,0 +1,28 @@
+/* 去除默认padding 和 margin */
+*{padding: 0;margin: 0;}  
+li{
+    /* 去除列表默认样式  */
+    list-style: none;
+}
+a{  
+    /* 去除a标签默认样式  */
+    color: inherit;
+    text-decoration: none;
+}
+img{
+    /* 图片默认3像素bug的解决方法  */
+    vertical-align: top;
+}
+/* 万能清浮动 => 清除float对父元素的影响 */
+.cl::after{
+    content:".";
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.w{
+    width: 1226px;
+    margin: 0 auto;
+}

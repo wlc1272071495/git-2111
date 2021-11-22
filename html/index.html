@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/search.css">
+    <script src="../js/cookie.js"></script>
+    <script src="../js/ajax.js"></script>
+    <script src="../js/interface.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            color: inherit;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .w {
+            width: 1226px;
+            margin: 0 auto;
+        }
+
+        .header {
+            height: 45px;
+            line-height: 45px;
+            /* background-color: grey; */
+        }
+
+        .header .site-nav-login>div {
+            display: none;
+        }
+
+        .header .site-nav-login .show {
+            display: block;
+        }
+
+        .showGrade table {
+            width: 100%;
+            table-layout: fixed;
+            border: 1px solid #666;
+            border-spacing: 0;
+            border-collapse: collapse;
+            line-height: 36px;
+            text-align: center;
+
+        }
+
+        .showGrade table th,
+        .showGrade table td {
+            border: 1px solid #666;
+        }
+
+        .shadow {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+
+        .shadow form {
+            padding: 20px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .shadow form p+p {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 哈哈哈哈 -->
+    <div class="header w">
+        <div class="site-nav-login">
+            <div class="nav-login-sign show">
+                <a href="./login.html">亲,请登录</a>
+                <a href="./register.html">账号注册</a>
+            </div>
+            <div class="nav-login-user">
+                <a href="javascript:;" class="loginTips">欢迎,xxx</a>
+                <a href="javascript:;" class="exit">退出</a>
+            </div>
+        </div>
+    </div>
+    <form class="search_bar w" onsubmit="return false">
+        <div class="searchBox">
+            <input type="text" class="searchCon">
+            <button class="searchBtn">搜索</button>
+        </div>
+        <div class="orderBox">
+            <!-- 排序的列(column)名 (id,chinese,math,english,total) -->
+            <div class="orderColBox">
+                <label>
+                    学号
+                    <input type="radio" checked="" name="orderCol" class="orderCol" value="id">
+                </label>
+                <label>
+                    语文
+                    <input type="radio" name="orderCol" class="orderCol" value="chinese">
+                </label>
+                <label>
+                    数学
+                    <input type="radio" name="orderCol" class="orderCol" value="math">
+                </label>
+                <label>
+                    英语
+                    <input type="radio" name="orderCol" class="orderCol" value="english">
+                </label>
+                <label>
+                    总分
+                    <input type="radio" name="orderCol" class="orderCol" value="total">
+                </label>
+            </div>
+            <!-- 排序的类型  升序 / 降序 -->
+            <div class="orderTypeBox">
+                <label>
+                    升序
+                    <input type="radio" checked="" name="orderType" class="orderType" value="asc">
+                </label>
+                <label>
+                    降序
+                    <input type="radio" name="orderType" class="orderType" value="desc">
+                </label>
+            </div>
+            <div class="showNumBox">
+                <select class="select">
+                    <option value="5" selected>每页显示05条</option>
+                    <option value="10">每页显示10条</option>
+                    <option value="15">每页显示15条</option>
+                    <option value="20">每页显示20条</option>
+                </select>
+            </div>
+            <input type="reset" class="resetBtn" value="重置">
+        </div>
+    </form>
+    <div class="showGrade w">
+        <table>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>班级</th>
+                    <th>语文</th>
+                    <th>数学</th>
+                    <th>英语</th>
+                    <th>总分</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>张三</td>
+                    <td>2108</td>
+                    <td>55</td>
+                    <td>66</td>
+                    <td>77</td>
+                    <td>198</td>
+                    <td><a href="javascript:;" class="edit">编辑</a></td>
+                    <td><a href="javascript:;" class="edit">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pageBox">
+        <button class="prev">上一页</button>
+        <span class="pageTips">1/17</span>
+        <button class="next">下一页</button>
+    </div>
+    <div class="shadow">
+        <form onsubmit="return false">
+            <p><label>编号:<input type="text" name="id" disabled></label></p>
+            <p><label>姓名:<input type="text" name="name" disabled></label></p>
+            <p><label>班级:<input type="text" name="class" disabled></label></p>
+            <p><label>语文:<input type="text" name="chinese"></label></p>
+            <p><label>数学:<input type="text" name="math"></label></p>
+            <p><label>英语:<input type="text" name="english"></label></p>
+            <p>
+                <input type="submit" class="save" value="保存">
+                <input type="reset" class="cancel" value="取消">
+            </p>
+        </form>
+    </div>
+</body>
+<script>
+    var siteNavLogin = document.getElementsByClassName("site-nav-login")[0];
+    var sitNavList = siteNavLogin.children;
+    var loginTips = document.querySelector(".loginTips");
+    var exit = document.querySelector(".exit");
+    var showGrade = document.querySelector(".showGrade");
+    var tbody = document.querySelector(".showGrade tbody");
+    var shadow = document.querySelector(".shadow");
+    var save = document.querySelector(".save");
+    var cancel = document.querySelector(".cancel");
+
+    var searchBar = document.querySelector(".search_bar");
+    var searchCon = document.querySelector(".searchCon");
+    var form = document.querySelector(".shadow form");
+    var select = document.querySelector(".select");
+
+    var prev = document.querySelector(".prev");
+    var next = document.querySelector(".next");
+    var pageTips = document.querySelector(".pageTips");
+
+    // 全局变量  => 1. 记录页面加载的默认值  2. 点击修改后的数值
+    var key = "";   // 页面加载时 默认搜索全部数据
+    var orderCol = "id"; //页面加载时  默认按照 id排序
+    var orderType = "asc"; // 页面加载时 默认升序
+    var pageIndex = 1; // 页面加载时 默认显示第一页
+    var showNum = 5;   // 页面加载时 默认每页显示五条
+
+
+    // 标识用户身份
+    var cookie = document.cookie;
+    if (cookie) {
+        var lgc = getCookie("lgc");
+        if (lgc) {
+            for (var i = 0; i < sitNavList.length; i++) {
+                sitNavList[i].classList.remove("show");
+            }
+            sitNavList[1].classList.add("show");
+            loginTips.textContent = `欢迎你,${lgc}`;
+
+            exit.onclick = function () {
+                deleteCookie("lgc");
+                location.reload();
+            }
+
+        }
+    }
+
+    // 页面加载时渲染所有成绩
+    loadGrade();
+
+
+    showGrade.onclick = function (e) {
+        var e = e || window.event;
+        var target = e.target || e.srcElement;
+
+        if (target.className == "delete") {
+            if (confirm("是否删除该成绩")) {
+
+
+                var tr = target.parentElement.parentElement;
+                // tr.remove();
+                var id = tr.getAttribute("data-id");
+                console.log(id);
+
+                deleteGradeById({ id }).then(result => {
+                    var { status, msg } = result;
+                    if (status) {
+                        tr.remove();
+                    } else {
+                        alert(msg);
+                    }
+                }).catch(err => {
+                    throw err;
+                })
+
+                /*   var xhr = new XMLHttpRequest();
+  
+                  xhr.open("get", "../php/deleteGradeById.php?id=" + id, true);
+  
+                  xhr.send();
+  
+                  xhr.onreadystatechange = function () {
+                      if (xhr.readyState == 4 && xhr.status == 200) {
+                          var result = xhr.responseText;
+                          console.log(result);
+                          result = JSON.parse(result);
+                          console.log(result);
+  
+                          var { status, msg } = result;
+                          if (status) {
+                              tr.remove();
+                          } else {
+                              alert(msg);
+                          }
+  
+                      }
+                  } */
+            }
+        } else if (target.className == "edit") {
+            // 遮罩层显示
+            shadow.style.display = "block";
+            var tr = target.parentElement.parentElement;
+            var id = tr.getAttribute("data-id");
+
+            $.ajax({
+                type: "get",
+                url: "../php/searchGradeById.php",
+                data: {
+                    id: id
+                    // id,
+                },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+
+                    var { status, msg, data } = result;
+                    if (status) {
+                        // idInp.value = data.id;
+                        // nameInp.value = data.name;
+                        // classInp.value = data.class;
+                        // chineseInp.value = data.chinese;
+                        // mathInp.value = data.math;
+                        // englishInp.value = data.english;
+
+
+                        // form.id.value = data.id;
+                        // form.name.value = data.name;
+                        // form.class.value = data.class;
+                        // form.chinese.value = data.chinese;
+                        // form.math.value = data.math;
+                        // form.english.value = data.english;
+
+
+                        for (var key in data) {
+                            form[key].value = data[key];
+                        }
+
+
+                    } else {
+                        alert(msg);
+                    }
+                }
+            })
+
+
+
+        }
+
+    }
+
+    searchBar.onclick = function () {
+        var e = e || window.event;
+        var target = e.target || e.srcElement;
+        if (target.className == "searchBtn") {  // 点击修改 搜索关键词
+            key = searchCon.value.trim();
+            loadGrade();
+        } else if (target.className == "orderCol") { // 点击修改 搜索排序列名
+            orderCol = target.value;
+            loadGrade();
+        } else if (target.className == "orderType") { // 点击修改  排序方式
+            orderType = target.value;;
+            loadGrade();
+        }
+    }
+
+    select.onchange = function () {
+        showNum = this.value;
+        // pageIndex = 1;  每次切换showNum  => pageIndex = 1(从第一页显示)
+        loadGrade();
+    }
+
+    save.onclick = function () {
+        var id = form.id.value;
+        var chinese = form.chinese.value;
+        var ma = form.math.value;
+        var en = form.english.value;
+
+        if (id && chinese && ma && en) {
+            $.ajax({
+                type: "post",
+                url: "../php/updateGradeById.php",
+                data: { id, ch: chinese, ma, en },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    var { status, msg } = result;
+                    if (status) {
+                        shadow.style.display = "none";
+                        loadGrade();
+                    } else {
+                        alert(msg);
+                    }
+                }
+            })
+        }
+    }
+
+    cancel.onclick = function () {
+        shadow.style.display = "none";
+    }
+
+    function loadGrade() {
+        $.ajax({
+            type: "get",
+            url: "../php/searchGradeOrderLimit.php",
+            data: { key, orderCol, orderType, pageIndex, showNum },
+            dataType: "json",
+            success: function (result) {
+                var { status, msg, list, currentIndex, count, maxPage } = result;
+
+                if (status) {
+                    if (list.length) {
+
+                        var html = "";
+                        list.forEach(({ id, name, class: _class, chinese, math, english, total }) => {
+                            html += `<tr  data-id="${id}">
+                            <td>${id}</td>
+                            <td>${name}</td>
+                            <td>${_class}</td>
+                            <td>${chinese}</td>
+                            <td>${math}</td>
+                            <td>${english}</td>
+                            <td>${total}</td>
+                            <td><a href="javascript:;" class="edit">编辑</a></td>
+                            <td><a href="javascript:;" class="delete" >删除</a></td>
+                        </tr>`;
+                        })
+                        tbody.innerHTML = html;
+
+                        // 问题?  数据总共81条,pageIndex 全局变量记录每次切换的页码
+                        // 每页显示5条  => 17
+                        // 每页显示10条  => 9
+                        // 每页显示15条  => 6
+                        // 每页显示20条  => 5 
+
+                        // 页码多 向 页码少的切换时  如果pageIndex 超出 maxPage => 此时点击上一页 不生效?
+                        // 解决方法:
+                        // (1)  每次切换showNum  => pageIndex = 1(从第一页显示)
+                        // (2)  超出最大页 => pageIndex默认改为最大页
+
+                        pageIndex = pageIndex > maxPage ? maxPage : pageIndex;
+                        pageTips.textContent = `${currentIndex}/${maxPage}`;
+                        console.log(pageIndex);
+
+                        prev.onclick = function () {
+                            if (pageIndex <= 1) return false;
+                            pageIndex--;
+                            console.log(pageIndex);
+                            loadGrade();
+                        }
+
+
+                        next.onclick = function () {
+                            if (pageIndex >= maxPage) return false;
+                            pageIndex++;
+                            console.log(pageIndex);
+                            loadGrade();
+                        }
+
+
+                    } else {
+                        showGrade.textContent = "暂无数据";
+                    }
+                } else {
+                    alert(msg);
+                }
+            }
+        })
+    }
+
+
+</script>
+
+</html>

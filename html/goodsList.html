@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/search.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/interface.js"></script>
+    <script src="../js/goodsList.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .cl::after {
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .w {
+            width: 1226px;
+            margin: 0 auto;
+        }
+
+        .list {
+            width: 1226px;
+            margin: 0 auto;
+            min-height: 608px;
+        }
+
+        .list li {
+            width: -webkit-calc(100% / 5);
+            float: left;
+            padding: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .list li:hover {
+            box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .list li a {
+            display: block;
+            text-align: center;
+        }
+
+        .list li img {
+            width: 80%;
+            margin: 20px auto;
+            transition: all 0.5s;
+        }
+
+        /* .list li:hover img {
+            transform: rotate(360deg);
+        } */
+
+
+
+        .info {
+            font-size: 12px;
+            line-height: 24px;
+            height: 48px;
+            /* 多行文本溢出隐藏 */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .price {
+            font-size: 12px;
+            color: red;
+        }
+
+        .search_bar {
+            margin: 20px auto;
+        }
+
+        .pageBox {
+            width: max-content;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="search_bar w" onsubmit="return false">
+        <div class="searchBox">
+            <input type="text" class="searchCon">
+            <button class="searchBtn">搜索</button>
+        </div>
+        <div class="orderBox">
+
+            <div class="orderColBox">
+                <label>
+                    编号
+                    <input type="radio" checked="" name="orderCol" class="orderCol" value="id">
+                </label>
+                <label>
+                    名称
+                    <input type="radio" name="orderCol" class="orderCol" value="goodsName">
+                </label>
+                <label>
+                    价格
+                    <input type="radio" name="orderCol" class="orderCol" value="goodsPrice">
+                </label>
+            </div>
+
+            <div class="orderTypeBox">
+                <label>
+                    升序
+                    <input type="radio" checked="" name="orderType" class="orderType" value="asc">
+                </label>
+                <label>
+                    降序
+                    <input type="radio" name="orderType" class="orderType" value="desc">
+                </label>
+            </div>
+            <div class="showNumBox">
+                <select class="select">
+                    <option value="10" selected="">每页显示10条</option>
+                    <option value="20">每页显示20条</option>
+                    <option value="40">每页显示40条</option>
+                    <option value="60">每页显示60条</option>
+                </select>
+            </div>
+            <input type="reset" class="resetBtn" value="重置">
+        </div>
+    </form>
+    <div class="list cl">
+        <!-- <li>
+            <a href="">
+                <img src="https://img12.360buyimg.com/n7/jfs/t1/139098/11/697/82375/5ee6fcebE11053e13/f5df8e27a0b546c5.jpg"
+                    alt="">
+            </a>
+            <p class="info">华为 HUAWEI P40 Pro 麒麟990 5G SoC芯片 5000万超感知徕卡四摄 50倍数字变焦 8GB+128GB冰霜银全网通5G</p>
+            <p class="price">￥<span>5988.00</span> </p>
+        </li>
+        <li>
+            <a href="">
+                <img src="https://img12.360buyimg.com/n7/jfs/t1/139098/11/697/82375/5ee6fcebE11053e13/f5df8e27a0b546c5.jpg"
+                    alt="">
+            </a>
+            <p class="info">华为 HUAWEI P40 Pro 麒麟990 5G SoC芯片 5000万超感知徕卡四摄 50倍数字变焦 8GB+128GB冰霜银全网通5G</p>
+            <p class="price">￥<span>5988.00</span> </p>
+        </li>
+        <li>
+            <a href="">
+                <img src="https://img12.360buyimg.com/n7/jfs/t1/139098/11/697/82375/5ee6fcebE11053e13/f5df8e27a0b546c5.jpg"
+                    alt="">
+            </a>
+            <p class="info">华为 HUAWEI P40 Pro 麒麟990 5G SoC芯片 5000万超感知徕卡四摄 50倍数字变焦 8GB+128GB冰霜银全网通5G</p>
+            <p class="price">￥<span>5988.00</span> </p>
+        </li>
+        <li>
+            <a href="">
+                <img src="https://img12.360buyimg.com/n7/jfs/t1/139098/11/697/82375/5ee6fcebE11053e13/f5df8e27a0b546c5.jpg"
+                    alt="">
+            </a>
+            <p class="info">华为 HUAWEI P40 Pro 麒麟990 5G SoC芯片 5000万超感知徕卡四摄 50倍数字变焦 8GB+128GB冰霜银全网通5G</p>
+            <p class="price">￥<span>5988.00</span> </p>
+        </li> -->
+    </div>
+    <div class="pageBox">
+        <button class="prev">上一页</button>
+        <span class="pageTips">1/19,共190条</span>
+        <button class="next">下一页</button>
+    </div>
+</body>
+
+
+</html>

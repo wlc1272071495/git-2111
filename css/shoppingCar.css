@@ -1,0 +1,355 @@
+body{
+    background-color: #f5f5f5;
+}
+.wrapHeader{
+    width: 100%;
+    border-bottom: 2px solid #ff6700;
+    background-color: #fff;
+}
+.header{
+    height: 100px;
+    padding: 26px 0;
+    box-sizing: border-box;
+}
+.header .left{
+    float: left;
+}
+.header .left .logo{
+    width: 48px;
+    height: 48px;
+    float: left;
+}
+.header .left .logo img{
+    width: 100%;
+}
+.header .left .title{
+    float: left;
+    line-height: 48px;
+    font-size: 28px;
+    margin-left: 45px;
+}
+.header .left .shoppingCarTips{
+    margin-left: 15px;
+    font-size: 12px;
+    color: #757575;
+    float: left;
+    line-height: 60px;
+}
+.header .right .loginBar{
+    float: right;
+    line-height: 48px;
+    color: #757575;
+    font-size: 12px;
+}
+.header .right .loginBar a{
+    padding: 0 6px;
+}
+
+.header .right .logined{
+    float: right;
+    position: relative;
+    display: none;
+    font-size: 12px;
+}
+.header .right .logined .tips{
+    line-height: 48px;
+    color: #757575;
+    display: block;
+    background-color: #fff;
+}
+.header .right .logined:hover{
+    background-color: #fff;
+}
+.header .right .logined:hover > a{
+    display: block;
+    font-size: 12px;
+    background-color: #fff;
+    position: relative;
+    z-index: 10000;
+    border-left:1px solid transparent;
+    color: #ff6700;
+}
+.header .right .logined:hover .subMenu{
+    height: 164px;
+}
+.header .right .logined .subMenu{
+    position:absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 99999;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    color: #424242;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+.header .right .logined .subMenu li{
+    line-height: 30px;
+}
+.header .right .logined .subMenu li:hover a{
+    color: #ff6700;
+}
+
+/* 购物车 */
+.container{
+    min-height: 500px;
+    margin-top: 40px;
+}
+
+.container .list-header{
+    height: 70px;
+    line-height: 70px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 12px;
+    background-color: #fff;
+}
+.container .list-body{
+    margin-bottom: 10px;
+}
+.container .col{
+    float: left;
+}
+.container .col-check{
+    width: 100px;
+}
+.container .col-check input{
+    margin-left: 25px;
+    vertical-align: middle;
+}
+.container .col-img{
+    width: 124px;
+    height: 70px;
+}
+.container .col-img img{
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.container .col-detail{
+    width: 400px;
+    font-size: 14px;
+    /* white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; */
+}
+.container .col-price{
+    width: 58px;
+    text-align: center;
+}
+.container .col-count{
+    width: 280px;
+    text-align: center;
+}
+.container .col-count .countBox{
+    width: 148px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #e0e0e0;
+}
+.container .col-count .countBox>*{
+    float: left;
+}
+.container .col-count .countBox .reduce{
+    width: 38px;
+    height: 38px;
+}
+.container .col-count .countBox .reduce:hover{
+    background-color: #e0e0e0;
+}
+.container .col-count .countBox .countSpan{
+    width: 72px;
+    height: 38px;
+}
+.container .col-count .countBox .add{
+    width: 38px;
+    height: 38px;
+}
+.container .col-count .countBox .add:hover{
+    background-color: #e0e0e0;
+}
+.container .col-subtotal{
+    width: 104px;
+}
+.container .list-header .col-subtotal .col-subtota{
+    text-indent: 24px;
+}
+
+.container .col-operate{
+    width: 135px;
+    text-align: center;
+}
+.container .list-item{
+    height: 116px;
+    line-height: 116px;
+    font-size: 14px;
+    background-color: #fff;
+    overflow: hidden;
+}
+.container .list-item + .list-item{
+    border-top: 1px solid #e0e0e0;
+}
+.container .list-item .col-subtotal{
+    color: #ff6700;
+}
+.container .delete{
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+.container .delete:hover{
+    background-color: #e53935;
+    color: #f5f5f5;
+}
+.container .list-footer{
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    font-size: 13px;
+    color: #757575;
+}
+.container .list-footer .col-continue{
+    width: 104px;
+    text-align: center;
+}
+.container .list-footer .col-sep{
+    width: 1px;
+    color: #eee;
+}
+.container .list-footer .col-center{
+    width: 919px;
+    height: 50px;
+    padding-left: 16px;
+    padding-right: 13px;
+    box-sizing: border-box;
+}
+.container .list-footer .col-center .numTips{
+    float: left;
+}
+.container .list-footer .col-center .numTips span{
+    color: #ff6700;
+}
+.container .list-footer .col-center .priceTips{
+    float: right;
+    color: #ff6700;
+}
+.container .list-footer .col-center .priceTips .selectedTotal{
+    font-size: 18px;
+}
+.container .list-footer .col-total{
+    width: 202px;
+    text-align: center;
+    background-color: #e0e0e0;
+    font-size: 18px;
+    position: relative;
+}
+.container .list-footer .active{
+    background-color:#ff6700;
+    color: #fff;
+}
+.container .list-footer .col-total .totalTips{
+    width: 200px;
+    height: 48px;
+    border: 1px solid #ff6700;
+    color: #ff6700;
+    text-align: center;
+    font-size: 13px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    top: -58px;
+}
+.container .list-footer .col-total .totalTips .arrow{
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    /* background-color: #fff; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 45px;
+    background-image: -webkit-linear-gradient(top,#fff 4px,transparent 4px);
+}
+
+
+/* 推荐 */
+.cart-recommend{
+    margin-bottom: 38px;
+}
+.cart-recommend .recommend-title{
+    height: 110px;
+    font-size: 28px;
+    color: #757575;
+    text-align: center;
+    line-height: 110px;
+    background: url(../images/line.png) no-repeat left center,url(../images/line.png) no-repeat right center;
+}
+.cart-recommend .recommend-list{
+    overflow: hidden;
+}
+.cart-recommend .recommend-list li{
+    width: 234px;
+    height: 300px;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    margin-right: 14px;
+    margin-bottom: 14px;
+}
+.cart-recommend .recommend-list li:nth-child(5n){
+    margin-right: 0;
+}
+.cart-recommend .recommend-list li img{
+    width: 140px;
+    height: 140px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.cart-recommend .recommend-list li .title{
+    font-size: 13px;
+    line-height: 13px;
+    color: #333;
+}
+.cart-recommend .recommend-list li .price{
+    font-size: 13px;
+    line-height: 13px;
+    color: #ff6700;
+    margin-top: 17px;
+    margin-bottom: 19px;
+}
+.cart-recommend .recommend-list li .tips{
+    font-size: 13px;
+    line-height: 13px;
+    color: #757575;
+}
+.cart-recommend .recommend-list li .addToShoppingCar{
+    width: 122px;
+    height: 30px;
+    color: #ff6700;
+    font-size: 13px;
+    line-height: 30px;
+    border: 1px solid #ff6700;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 16px;
+    transform: translateY(200%);
+    transition: all 0.5s;
+}
+.cart-recommend .recommend-list li:hover .addToShoppingCar{
+    transform: translateY(0);
+}
+.cart-recommend .recommend-list li .addToShoppingCar:hover{
+    background-color: #ff6700;
+    color: #fff;
+}

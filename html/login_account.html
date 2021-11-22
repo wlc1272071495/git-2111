@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/cookie.js"></script>
+    <style>
+        div {
+            user-select: none;
+        }
+
+        p span {
+            position: absolute;
+        }
+
+        .right {
+            font-size: 12px;
+            color: green;
+        }
+
+        .err {
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form onsubmit="return false">
+        <p>
+            <label for="user">账&emsp;号:</label>
+            <input type="text" id="user" placeholder="用户名/手机号/邮箱"><br>
+            <span id=" user_span"></span>
+        </p>
+        <p>
+            <label for="">密&emsp;码:</label>
+            <input type="text" id="pwd"><br>
+            <span id="pwd_span"></span>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="isRem"> 记住用户名?
+            </label>
+        </p>
+        <p>
+            <input type="submit" id="btn" value="登录">
+        </p>
+    </form>
+</body>
+
+<script>
+
+    // 1. 获取元素 
+    var userInp = document.getElementById("user");
+    var userSpan = document.getElementById("user_span");
+
+    var pwdInp = document.getElementById("pwd");
+    var pwdSpan = document.getElementById("pwd_span");
+    var isRem = document.getElementById("isRem");
+
+    btn.onclick = function () {
+        // 用户输入的  用户名和密码
+        var account = userInp.value.trim();
+        var pwd = pwdInp.value;
+
+        if (account && pwd) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("post", "../php/login_account.php", true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(`account=${account}&pwd=${pwd}`);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = xhr.responseText;
+                    console.log(result);
+                    result = JSON.parse(result);
+                    console.log(result);
+
+                    var { status, msg, user } = result;
+
+                    if (status) {
+                        if (isRem.checked) {
+                            setCookie("lgc", user, 7);
+                        } else {
+                            setCookie("lgc", user);
+                        }
+
+                        var url = urlParse();
+                        var { returnUrl } = url;
+                        console.log(returnUrl);
+
+                        if (returnUrl) {
+                            location.href = decodeURIComponent(returnUrl);
+                        } else {
+                            location.href = "index.html";
+                        }
+                    } else {
+                        // alert(msg);
+                        pwdSpan.textContent = msg;
+                        pwdSpan.className = "err";
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    function urlParse() {
+        var search = location.search;
+        var data = {};
+        if (search) {  //从注册页跳转过来  => 有数据
+            var str = search.substring(1);
+            console.log(str);
+            var list = str.split("&");
+            // console.log(list);
+            list.forEach(function (item) {
+                var key = item.split("=")[0];
+                var val = item.split("=")[1];
+                data[key] = val;
+            })
+        }
+        return data;
+    }
+
+
+
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/ajax.js"></script>
+    <script src="../js/interface.js"></script>
+    <style>
+        div {
+            user-select: none;
+        }
+
+        .right {
+            font-size: 12px;
+            color: green;
+        }
+
+        .err {
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form onsubmit="return false">
+        <p>
+            <label for="user">用户名:</label>
+            <input type="text" id="user" placeholder="用户名">
+            <span id="user_span"></span>
+        </p>
+        <p>
+            <label for="">密&emsp;码:</label>
+            <input type="text" id="pwd">
+            <span id="pwd_span"></span>
+        </p>
+        <p>
+            <label for="">手机号:</label>
+            <input type="text" id="phone">
+            <span id="phone_span"></span>
+        </p>
+        <p>
+            <label for="">邮&emsp;箱:</label>
+            <input type="text" id="email">
+            <span id="email_span"></span>
+        </p>
+        <p>
+            <input type="submit" id="btn" value="注册">
+        </p>
+    </form>
+</body>
+
+<script>
+
+    // 1. 获取元素 
+    var userInp = document.getElementById("user");
+    var userSpan = document.getElementById("user_span");
+
+    var pwdInp = document.getElementById("pwd");
+    var pwdSpan = document.getElementById("pwd_span");
+
+    var phoneInp = document.getElementById("phone");
+    var phoneSpan = document.getElementById("phone_span");
+
+    var emailInp = document.getElementById("email");
+    var emailSpan = document.getElementById("email_span");
+
+    var btn = document.getElementById("btn");
+
+    var isUserOk = false;
+    var isPwdOk = false;
+    var isPhoneOk = false;
+    var isEmailOk = false;
+
+    // 用户名:   由数字,字母 下划线组成,6-12位,且不能以数字开头
+    // 一步到位
+    userInp.onblur = judgeUser;
+    pwdInp.onblur = judgePwd;
+    phoneInp.onblur = judgePhone;
+    emailInp.onblur = judgeEmail;
+
+    btn.onclick = registerHandler
+
+    /* async function registerHandler() {
+        // 按顺序验证   => 全都成功再注册
+        var isUserOk = await judgeUser();
+        var isPwdOk = await judgePwd();
+        var isPhoneOk = await judgePhone();
+        var isEmailOk = await judgeEmail();
+
+
+        if (isUserOk && isPwdOk && isPhoneOk && isEmailOk) {
+            var user = userInp.value.trim();
+            var pwd = pwdInp.value;
+            var phone = phoneInp.value;
+            var email = emailInp.value;
+
+            var result = await register({ user, pwd, phone, email });
+            var { status, msg } = result;
+            if (status) {
+                location.href = "login.html";
+            } else {
+                alert(msg);
+            }
+        }
+    } */
+
+    async function registerHandler() {
+        // 同时验证   => 全都成功再注册
+
+        var list = await Promise.all([judgeUser(), judgePwd(), judgePhone(), judgeEmail()]);  //新的Promise实例
+        console.log(list);
+        var flag = list.every(item => item === true);
+        if (flag) {
+            var user = userInp.value.trim();
+            var pwd = pwdInp.value;
+            var phone = phoneInp.value;
+            var email = emailInp.value;
+            var result = await register({ user, pwd, phone, email });
+            var { status, msg } = result;
+            if (status) {
+                location.href = "login.html";
+            } else {
+                alert(msg);
+            }
+        }
+
+        // if (isUserOk && isPwdOk && isPhoneOk && isEmailOk) {
+        //     var user = userInp.value.trim();
+        //     var pwd = pwdInp.value;
+        //     var phone = phoneInp.value;
+        //     var email = emailInp.value;
+
+        //     var result = await register({ user, pwd, phone, email });
+        //     var { status, msg } = result;
+        //     if (status) {
+        //         location.href = "login.html";
+        //     } else {
+        //         alert(msg);
+        //     }
+        // }
+    }
+
+
+
+
+    async function judgeUser() {
+        var user = userInp.value.trim();
+        userInp.value = user;
+
+        var reg = /^[a-zA-Z_]\w{5,11}$/;
+
+        if (reg.test(user)) {
+
+            var result = await isExistUser({ user: user });
+            var { status, msg } = result;
+            if (status) {
+                userSpan.textContent = "√";
+                userSpan.className = "right";
+                return true;
+            } else {
+                userSpan.textContent = "用户名已存在";
+                userSpan.className = "err";
+            }
+        } else {
+            userSpan.textContent = "用户名由数字、字母、下划线组成,6-12位,且不能以数字开头";
+            userSpan.className = "err";
+        }
+        return false;
+    }
+
+    // 密码:   由数字,字母 下划线组成,6-12位,
+
+    async function judgePwd() {
+        var pwd = pwdInp.value.trim();
+        pwdInp.value = pwd;
+
+        var reg = /^\w{6,12}$/;
+
+        if (reg.test(pwd)) {
+            pwdSpan.textContent = "√";
+            pwdSpan.className = "right";
+            return true;
+        } else {
+            pwdSpan.textContent = "密码由数字、字母、下划线组成,6-12位";
+            pwdSpan.className = "err";
+        }
+        return false;
+    }
+
+
+    // 手机号: 
+
+    async function judgePhone() {
+        var phone = phoneInp.value.trim();
+        phoneInp.value = phone;
+
+        var reg = /^1[3-9]\d{9}$/;
+
+        if (reg.test(phone)) {
+
+            var result = await isExistPhone({ phone });
+            var { status, msg } = result;
+            if (status) {
+                phoneSpan.textContent = "√";
+                phoneSpan.className = "right";
+                isPhoneOk = true;
+                return true;
+            } else {
+                phoneSpan.textContent = msg;
+                phoneSpan.className = "err";
+            }
+
+        } else {
+            phoneSpan.textContent = "请输入正确的手机号";
+            phoneSpan.className = "err";
+        }
+
+        return false;
+    }
+
+
+    async function judgeEmail() {
+        var email = emailInp.value.trim();
+        emailInp.value = email;
+        isEmailOk = false;
+
+        // 1231231@qq.com
+        var reg = /^\w+@\w+\.(com|cn|edu)$/;
+
+        if (reg.test(email)) {
+            var result = await isExistEmail({ email });
+
+            var { status, msg } = result;
+
+            if (status) {
+                emailSpan.textContent = "√";
+                emailSpan.className = "right";
+                return true;
+            } else {
+                emailSpan.textContent = msg;
+                emailSpan.className = "err";
+            }
+        } else {
+            emailSpan.textContent = "请输入正确的邮箱";
+            emailSpan.className = "err";
+        }
+        return false;
+    }
+
+
+
+
+
+
+</script>
+
+</html>
